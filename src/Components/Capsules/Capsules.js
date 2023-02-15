@@ -4,19 +4,23 @@ import Pagination from "../Pagination/Pagination";
 export default function Capsules() {
   const [capsules, setCapsules] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const capsulesPerPage = 9;
   useEffect(() => {
     const fetchCapsulesData = async () => {
       const response = await fetch("https://api.spacexdata.com/v3/capsules");
       const data = await response.json();
       setCapsules(data);
+      setLoading(false);
     };
     fetchCapsulesData();
   }, []);
   const lastCapsuleIndex = currentPage * capsulesPerPage;
   const firstCapsuleIndex = lastCapsuleIndex - capsulesPerPage;
-  const capsulesData = capsules.slice(firstCapsuleIndex,lastCapsuleIndex);
-  return (
+  const capsulesData = capsules.slice(firstCapsuleIndex, lastCapsuleIndex);
+  return loading ? (
+    <div className="loader"></div>
+  ) : (
     <>
       <section>
         <h1 className="heading mb-5">Capsules</h1>
@@ -32,12 +36,12 @@ export default function Capsules() {
               <ul>
                 <li className="mb-1">Reused times: {capsule?.reuse_count}</li>
                 <li className="mb-1">landings: {capsule?.landings}</li>
-                <li className="mb-1">Details: {capsule?.details || 'NA'} </li>
+                <li className="mb-1">Details: {capsule?.details || "NA"} </li>
                 <li className="mb-1">
-                  Original Launch: {capsule?.original_launch || 'NA'}
+                  Original Launch: {capsule?.original_launch || "NA"}
                 </li>
                 <li className="mb-1">
-                  Original Launch Unix: {capsule?.original_launch_unix || 'NA'}
+                  Original Launch Unix: {capsule?.original_launch_unix || "NA"}
                 </li>
                 <li
                   className={`capitalize ${
@@ -53,7 +57,7 @@ export default function Capsules() {
           ))}
         </div>
       </section>
-      <Pagination 
+      <Pagination
         totalCapsules={capsules?.length}
         capsulesPerPage={capsulesPerPage}
         currentPage={currentPage}
