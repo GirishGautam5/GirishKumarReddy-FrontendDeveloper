@@ -9,7 +9,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  @apply bg-gradient-to-br from-stone-900 to-slate-900;
+  /* @apply bg-gradient-to-br from-stone-900 to-slate-900; */
+  background-color: #101010;
   /* background-color: #000; */
 }
 
@@ -24,11 +25,11 @@ code {
 }
 
 .heading {
-  @apply font-bold text-white text-3xl md: text-4xl lg:text-6xl capitalize text-center mb-5;
+  @apply font-bold text-white text-3xl text-4xl lg:text-6xl capitalize text-center mb-5;
 }
 
 .heading-inner {
-  @apply font-bold text-white text-3xl md: text-4xl lg:text-6xl capitalize mb-5;
+  @apply font-bold text-white text-3xl lg:text-6xl capitalize mb-5;
 }
 
 .articles {
@@ -37,7 +38,7 @@ code {
 }
 
 .max-width {
-  @apply px-5 lg: max-w-4xl lg:mx-auto xl:max-w-6xl 2xl:px-0;
+  @apply px-5 lg:max-w-4xl lg:mx-auto xl:max-w-6xl 2xl:px-0;
 }
 
 .spinner-article {
