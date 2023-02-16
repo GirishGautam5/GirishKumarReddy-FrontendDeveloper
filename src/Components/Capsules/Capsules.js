@@ -5,6 +5,21 @@ export default function Capsules() {
   const [capsules, setCapsules] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState({ type: "", status: "", landings: "" });
+
+  const handleFilterChange = (event) => {
+    const { name, value } = event.target;
+    setFilter({ ...filter, [name]: value });
+  };
+
+  const filteredData = capsules.filter((item) => {
+    return (
+      item.type.includes(filter.type) &&
+      item.status.includes(filter.status) &&
+      item.landings.toString().includes(filter.landings)
+    );
+  });
+
   const capsulesPerPage = 9;
   useEffect(() => {
     const fetchCapsulesData = async () => {
@@ -15,18 +30,55 @@ export default function Capsules() {
     };
     fetchCapsulesData();
   }, []);
+  const displayCapsules =
+    filter.type || filter.status || filter.landings ? filteredData : capsules;
   const lastCapsuleIndex = currentPage * capsulesPerPage;
   const firstCapsuleIndex = lastCapsuleIndex - capsulesPerPage;
-  const capsulesData = capsules.slice(firstCapsuleIndex, lastCapsuleIndex);
+  const capsulesData = displayCapsules.slice(
+    firstCapsuleIndex,
+    lastCapsuleIndex
+  );
+
   return loading ? (
     <div className="loader"></div>
   ) : (
     <>
       <section>
+        <h1>Filterable List</h1>
         <h1 className="heading mb-5">Capsules</h1>
         <div className="max-width grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-10">
+          <label className="text-white">
+            Capsule type:{" "}
+            <input
+              type="text"
+              name="type"
+              placeholder="Search by Capsule type"
+              value={filter.type}
+              onChange={handleFilterChange}
+            />
+          </label>
+          <label className="text-white">
+            Capsule Status:{" "}
+            <input
+              type="text"
+              name="status"
+              placeholder="Search by status"
+              value={filter.status}
+              onChange={handleFilterChange}
+            />
+          </label>
+          <label className="text-white">
+            Total Landings:{" "}
+            <input
+              type="text"
+              name="landings"
+              placeholder="Search by total landings"
+              value={filter.landings}
+              onChange={handleFilterChange}
+            />
+          </label>
           {capsulesData.map((capsule) => (
-            <article key={capsule?.capsule_id} className="articles">
+            <article key={capsule?.capsule_serial} className="articles">
               <h2 className="text-xl font-bold mb-5">
                 {capsule?.type},{" "}
                 <span className="text-base font-normal opacity-75">
@@ -58,7 +110,7 @@ export default function Capsules() {
         </div>
       </section>
       <Pagination
-        totalCapsules={capsules?.length}
+        totalCapsules={displayCapsules?.length}
         capsulesPerPage={capsulesPerPage}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
