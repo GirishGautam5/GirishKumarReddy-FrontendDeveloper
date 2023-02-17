@@ -37,6 +37,10 @@ code {
   @apply bg-stone-900 p-5 rounded-lg text-white shadow shadow-zinc-800 text-sm
 }
 
+.capsules {
+  background-color: #28282B;
+}
+
 .rocket {
   margin-bottom: 100px;
 }

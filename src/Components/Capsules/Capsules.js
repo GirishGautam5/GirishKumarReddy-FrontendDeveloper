@@ -1,27 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Pagination from "../Pagination/Pagination";
 
+export const filteredData = (capsules, filter) =>
+  capsules?.filter((item) => {
+    return (
+      item?.capsule_serial?.includes(filter.type) &&
+      item?.status?.includes(filter.status) &&
+      item?.landings?.toString().includes(filter.landings)
+    );
+  });
+
 export default function Capsules() {
-  const [capsules, setCapsules] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState({ type: "", status: "", landings: "" });
+  const [capsules, setCapsules] = React.useState([]);
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [loading, setLoading] = React.useState(true);
+  const [filter, setFilter] = React.useState({
+    type: "",
+    status: "",
+    landings: "",
+  });
 
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
     setFilter({ ...filter, [name]: value });
   };
 
-  const filteredData = capsules.filter((item) => {
-    return (
-      item.type.includes(filter.type) &&
-      item.status.includes(filter.status) &&
-      item.landings.toString().includes(filter.landings)
-    );
-  });
-
   const capsulesPerPage = 9;
-  useEffect(() => {
+  React.useEffect(() => {
     const fetchCapsulesData = async () => {
       const response = await fetch("https://api.spacexdata.com/v3/capsules");
       const data = await response.json();
@@ -30,11 +35,13 @@ export default function Capsules() {
     };
     fetchCapsulesData();
   }, []);
+
+  const filteredCapsulesData = filteredData(capsules, filter);
   const showFilteredData = filter.type || filter.status || filter.landings;
-  const displayCapsules = showFilteredData ? filteredData : capsules;
+  const displayCapsules = showFilteredData ? filteredCapsulesData : capsules;
   const lastCapsuleIndex = currentPage * capsulesPerPage;
   const firstCapsuleIndex = lastCapsuleIndex - capsulesPerPage;
-  const capsulesData = displayCapsules.slice(
+  const capsulesData = displayCapsules?.slice(
     firstCapsuleIndex,
     lastCapsuleIndex
   );
@@ -51,7 +58,7 @@ export default function Capsules() {
             <input
               type="text"
               name="type"
-              placeholder="Search by Capsule type"
+              placeholder="Search by Capsule type(C101)"
               value={filter.type}
               onChange={handleFilterChange}
             />
@@ -77,7 +84,7 @@ export default function Capsules() {
             />
           </label>
           {capsulesData.map((capsule) => (
-            <article key={capsule?.capsule_serial} className="articles">
+            <article key={capsule?.capsule_serial} className="articles capsules">
               <h2 className="text-xl font-bold mb-5">
                 {capsule?.type},{" "}
                 <span className="text-base font-normal opacity-75">
@@ -106,7 +113,7 @@ export default function Capsules() {
               </ul>
             </article>
           ))}
-          {showFilteredData && filteredData?.length === 0 && (
+          {showFilteredData && filteredCapsulesData?.length === 0 && (
             <h1 className="noResult">No Search Results ....</h1>
           )}
         </div>

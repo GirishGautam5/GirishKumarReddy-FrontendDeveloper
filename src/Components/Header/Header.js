@@ -14,7 +14,7 @@ export default function Header() {
         <nav className="navbar">
           <ul>
             <li>
-              <Link to="/capsules" className="text-white text-sm lg:text-base">
+              <Link to="/" className="text-white text-sm lg:text-base">
                 Capsules
               </Link>
             </li>

@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { HomePage, Header, Capsules, Rockets } from "./Components";
+import { Header, Capsules, Rockets } from "./Components";
 
 function App() {
   return (
@@ -7,8 +7,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/capsules" element={<Capsules />} />
+          <Route path="/" element={<Capsules />} />
           <Route path="/rockets" element={<Rockets />}></Route>
         </Routes>
       </BrowserRouter>

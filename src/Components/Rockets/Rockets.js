@@ -1,12 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
+export const handleFilterChange = (event, setFilter, filter) => {
+  const { name, value } = event.target;
+  setFilter({ ...filter, [name]: value });
+};
+
+export  const filteredData =(rockets, filter)=> rockets?.filter((item) => {
+  return (
+    item?.rocket_name?.includes(filter.name) &&
+    item?.active?.toString()?.includes(filter.status) &&
+    item?.cost_per_launch?.toString()?.includes(filter.cost)
+  );
+});
 export default function Rockets() {
-  const [rockets, setRockets] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [rockets, setRockets] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
 
-  const [filter, setFilter] = useState({ name: "", status: "", cost: "" });
+  const [filter, setFilter] = React.useState({ name: "", status: "", cost: "" });
 
-  useEffect(() => {
+  React.useEffect(() => {
     const fetchRockets = async () => {
       const res = await fetch(`https://api.spacexdata.com/v3/rockets`);
       const data = await res.json();
@@ -17,21 +29,12 @@ export default function Rockets() {
     fetchRockets();
   }, []);
 
-  const handleFilterChange = (event) => {
-    const { name, value } = event.target;
-    setFilter({ ...filter, [name]: value });
-  };
+  
 
-  const filteredData = rockets?.filter((item) => {
-    return (
-      item?.rocket_name.includes(filter.name) &&
-      item?.active.toString()?.includes(filter.status) &&
-      item?.cost_per_launch.toString()?.includes(filter.cost)
-    );
-  });
-
+ 
+const rocketsDataAfterFilter = filteredData(rockets, filter)
   const showFilteredData = filter.name || filter.status || filter.cost;
-  const rocketsData = showFilteredData ? filteredData : rockets;
+  const rocketsData = showFilteredData ? rocketsDataAfterFilter : rockets;
 
   return loading ? (
     <div className="loader"></div>
@@ -48,7 +51,7 @@ export default function Rockets() {
               name="name"
               placeholder="Search by Rocket name"
               value={filter.name}
-              onChange={handleFilterChange}
+              onChange={(event)=>handleFilterChange(event, setFilter,filter)}
             />
           </label>
           <label className="text-white">
@@ -58,7 +61,7 @@ export default function Rockets() {
               name="status"
               placeholder="Search by status(true or false)"
               value={filter.status}
-              onChange={handleFilterChange}
+              onChange={(event)=>handleFilterChange(event, setFilter,filter)}
             />
           </label>
           <label className="text-white">
@@ -68,7 +71,7 @@ export default function Rockets() {
               name="cost"
               placeholder="Search by total cost"
               value={filter.cost}
-              onChange={handleFilterChange}
+              onChange={(event)=>handleFilterChange(event, setFilter,filter)}
             />
           </label>
           {rocketsData?.map((rocket) => (
@@ -98,7 +101,7 @@ export default function Rockets() {
               </div>
             </article>
           ))}
-          {showFilteredData && filteredData?.length === 0 && (
+          {showFilteredData && rocketsDataAfterFilter?.length === 0 && (
             <h1 className="noResult">No Search Results ....</h1>
           )}
         </div>
