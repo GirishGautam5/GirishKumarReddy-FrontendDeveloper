@@ -84,7 +84,10 @@ export default function Capsules() {
             />
           </label>
           {capsulesData.map((capsule) => (
-            <article key={capsule?.capsule_serial} className="articles capsules">
+            <article
+              key={capsule?.capsule_serial}
+              className="articles capsules"
+            >
               <h2 className="text-xl font-bold mb-5">
                 {capsule?.type},{" "}
                 <span className="text-base font-normal opacity-75">

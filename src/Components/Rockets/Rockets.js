@@ -5,18 +5,23 @@ export const handleFilterChange = (event, setFilter, filter) => {
   setFilter({ ...filter, [name]: value });
 };
 
-export  const filteredData =(rockets, filter)=> rockets?.filter((item) => {
-  return (
-    item?.rocket_name?.includes(filter.name) &&
-    item?.active?.toString()?.includes(filter.status) &&
-    item?.cost_per_launch?.toString()?.includes(filter.cost)
-  );
-});
+export const filteredData = (rockets, filter) =>
+  rockets?.filter((item) => {
+    return (
+      item?.rocket_name?.includes(filter.name) &&
+      item?.active?.toString()?.includes(filter.status) &&
+      item?.cost_per_launch?.toString()?.includes(filter.cost)
+    );
+  });
 export default function Rockets() {
   const [rockets, setRockets] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
 
-  const [filter, setFilter] = React.useState({ name: "", status: "", cost: "" });
+  const [filter, setFilter] = React.useState({
+    name: "",
+    status: "",
+    cost: "",
+  });
 
   React.useEffect(() => {
     const fetchRockets = async () => {
@@ -29,10 +34,7 @@ export default function Rockets() {
     fetchRockets();
   }, []);
 
-  
-
- 
-const rocketsDataAfterFilter = filteredData(rockets, filter)
+  const rocketsDataAfterFilter = filteredData(rockets, filter);
   const showFilteredData = filter.name || filter.status || filter.cost;
   const rocketsData = showFilteredData ? rocketsDataAfterFilter : rockets;
 
@@ -51,7 +53,7 @@ const rocketsDataAfterFilter = filteredData(rockets, filter)
               name="name"
               placeholder="Search by Rocket name"
               value={filter.name}
-              onChange={(event)=>handleFilterChange(event, setFilter,filter)}
+              onChange={(event) => handleFilterChange(event, setFilter, filter)}
             />
           </label>
           <label className="text-white">
@@ -61,7 +63,7 @@ const rocketsDataAfterFilter = filteredData(rockets, filter)
               name="status"
               placeholder="Search by status(true or false)"
               value={filter.status}
-              onChange={(event)=>handleFilterChange(event, setFilter,filter)}
+              onChange={(event) => handleFilterChange(event, setFilter, filter)}
             />
           </label>
           <label className="text-white">
@@ -71,7 +73,7 @@ const rocketsDataAfterFilter = filteredData(rockets, filter)
               name="cost"
               placeholder="Search by total cost"
               value={filter.cost}
-              onChange={(event)=>handleFilterChange(event, setFilter,filter)}
+              onChange={(event) => handleFilterChange(event, setFilter, filter)}
             />
           </label>
           {rocketsData?.map((rocket) => (

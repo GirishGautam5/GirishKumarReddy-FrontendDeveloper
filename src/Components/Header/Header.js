@@ -9,7 +9,6 @@ export default function Header() {
       <header className="header top-0 left-0 p-5 flex items-center justify-between w-full lg:py-0">
         <Link to="/">
           <SiSpacex className="text-8xl text-white" />
-          {/* <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYwFlI5-jL_3zz96EqPweVttCQyseVVD0dcw&usqp=CAU' alt='spacex' /> */}
         </Link>
         <nav className="navbar">
           <ul>
