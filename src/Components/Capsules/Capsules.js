@@ -30,8 +30,8 @@ export default function Capsules() {
     };
     fetchCapsulesData();
   }, []);
-  const displayCapsules =
-    filter.type || filter.status || filter.landings ? filteredData : capsules;
+  const showFilteredData = filter.type || filter.status || filter.landings;
+  const displayCapsules = showFilteredData ? filteredData : capsules;
   const lastCapsuleIndex = currentPage * capsulesPerPage;
   const firstCapsuleIndex = lastCapsuleIndex - capsulesPerPage;
   const capsulesData = displayCapsules.slice(
@@ -44,7 +44,6 @@ export default function Capsules() {
   ) : (
     <>
       <section>
-        <h1>Filterable List</h1>
         <h1 className="heading mb-5">Capsules</h1>
         <div className="max-width grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-10">
           <label className="text-white">
@@ -107,6 +106,9 @@ export default function Capsules() {
               </ul>
             </article>
           ))}
+          {showFilteredData && filteredData?.length === 0 && (
+            <h1 className="noResult">No Search Results ....</h1>
+          )}
         </div>
       </section>
       <Pagination

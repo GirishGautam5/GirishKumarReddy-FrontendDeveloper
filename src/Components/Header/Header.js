@@ -6,16 +6,21 @@ import "./HeaderStyles.css";
 export default function Header() {
   return (
     <>
-      <header className="header">
+      <header className="header top-0 left-0 p-5 flex items-center justify-between w-full lg:py-0">
         <Link to="/">
           <SiSpacex className="text-8xl text-white" />
           {/* <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYwFlI5-jL_3zz96EqPweVttCQyseVVD0dcw&usqp=CAU' alt='spacex' /> */}
         </Link>
-        <nav>
+        <nav className="navbar">
           <ul>
             <li>
               <Link to="/capsules" className="text-white text-sm lg:text-base">
                 Capsules
+              </Link>
+            </li>
+            <li>
+              <Link to="/rockets" className="text-white text-sm lg:text-base">
+                Rockets
               </Link>
             </li>
           </ul>
