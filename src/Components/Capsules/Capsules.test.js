@@ -3,6 +3,7 @@ import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import Capsules, { filteredData } from "./Capsules";
 import React from "react";
+import toJson from "enzyme-to-json";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -13,7 +14,7 @@ describe("Capsules test suite", () => {
     useEffectMock.mockClear();
   });
   it("Capsules component  test case", () => {
-    expect(capsulesComponent).toMatchSnapshot();
+    expect(toJson(capsulesComponent)).toMatchSnapshot();
   });
   it("Capsules test case for useeffect", () => {
     const capsules = [
@@ -46,6 +47,7 @@ describe("Capsules test suite", () => {
       ]);
     const capsulesComponent = shallow(<Capsules />);
     expect(capsulesComponent).toBeDefined();
+    expect(toJson(capsulesComponent)).toMatchSnapshot();
   });
   it("filtereredData test case", () => {
     const capsules = [

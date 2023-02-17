@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header Component test suite Header Component test case 1`] = `
+<Fragment>
+  <header
+    className="header top-0 left-0 p-5 flex items-center justify-between w-full lg:py-0"
+  >
+    <Link
+      to="/"
+    >
+      <SiSpacex
+        className="text-8xl text-white"
+      />
+    </Link>
+    <nav
+      className="navbar"
+    >
+      <ul>
+        <li>
+          <Link
+            className="text-white text-sm lg:text-base"
+            to="/"
+          >
+            Capsules
+          </Link>
+        </li>
+        <li>
+          <Link
+            className="text-white text-sm lg:text-base"
+            to="/rockets"
+          >
+            Rockets
+          </Link>
+        </li>
+      </ul>
+    </nav>
+  </header>
+</Fragment>
+`;

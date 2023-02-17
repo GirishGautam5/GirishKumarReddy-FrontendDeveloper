@@ -3,6 +3,7 @@ import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import Rockets, { filteredData, handleFilterChange } from "./Rockets";
 import React from "react";
+import toJson from "enzyme-to-json";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -41,6 +42,7 @@ describe("Rockets test suite", () => {
       .mockReturnValueOnce([{ name: "" }, (val) => val]);
     const rocketComponent = shallow(<Rockets />);
     expect(rocketComponent).toBeDefined();
+    expect(toJson(rocketComponent)).toMatchSnapshot();
   });
   it("Rocket component test for rocket status true", () => {
     const rocketsData = [

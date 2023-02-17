@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rockets test suite Rocket component  test case 1`] = `ShallowWrapper {}`;
+
+exports[`Rockets test suite Rocket component test for useffect 1`] = `
+<section
+  className="rocket"
+>
+  <div
+    className="overlay"
+  >
+    <h1
+      className="heading"
+    >
+      Rockets
+    </h1>
+    <div
+      className="max-width grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 mt-10"
+    >
+      <label
+        className="text-white"
+      >
+        Rocket Name:
+         
+        <input
+          name="name"
+          onChange={[Function]}
+          placeholder="Search by Rocket name"
+          type="text"
+          value=""
+        />
+      </label>
+      <label
+        className="text-white"
+      >
+        Rocket Status:
+         
+        <input
+          name="status"
+          onChange={[Function]}
+          placeholder="Search by status(true or false)"
+          type="text"
+        />
+      </label>
+      <label
+        className="text-white"
+      >
+        Total Cost:
+         
+        <input
+          name="cost"
+          onChange={[Function]}
+          placeholder="Search by total cost"
+          type="text"
+        />
+      </label>
+      <article
+        className="articles"
+        key="1"
+      >
+        <img
+          alt="Falcon 9"
+          className="h-72 w-full object-cover"
+          src={Object {}}
+        />
+        <div
+          className="p-5"
+        >
+          <h2
+            className="text-white font-bold text-xl my-1"
+          >
+            Falcon 9
+          </h2>
+          <h3
+            className="capitalize text-red-500"
+          >
+            Status: 
+            false
+          </h3>
+          <p>
+            Cost per launch: 
+          </p>
+          <p
+            className="text-white opacity-75 text-sm mb-5"
+          >
+            This is Falcon 9 Rocket...
+          </p>
+          <button
+            className="btn"
+          >
+            Learn more
+          </button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+`;
